@@ -235,7 +235,6 @@ app.get("/locker", (req, res) => {
         &nbsp;
         <span id="doorStatus" class="pill ${l.doorOpen ? 'ok' : ''}">${l.doorOpen ? 'DOOR: OPEN' : 'DOOR: CLOSED'}</span>
       </p>
-      <p class="muted">เดโม: คุณสามารถเปิด/ปิดประตูด้วย URL <span class="mono">/door?action=open|close&locker_id=${locker_id}</span></p>
     </div>
   `, scripts));
 });
