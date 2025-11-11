@@ -638,12 +638,28 @@ app.get("/decision", async (req, res) => {
     const locker = getLocker(id);
     locker.disabled = true;
     publishLockerUpdate(id);
-    await linePush(OWNER_USER_ID, { type: "text", text: `⛔ ปิด QR ของตู้ ${id} แล้ว` });
+    
+    // ปิดคำขอทั้งหมดที่ pending อยู่สำหรับตู้นี้
+    let closedCount = 0;
+    for (const [reqId, reqData] of requests.entries()) {
+      if (reqData.locker_id === id && reqData.status === "pending") {
+        reqData.status = "closed";
+        publishRequestUpdate(reqId);
+        closedCount++;
+      }
+    }
+    
+    await linePush(OWNER_USER_ID, { 
+      type: "text", 
+      text: `⛔ ปิด QR ของตู้ ${id} แล้ว${closedCount > 0 ? `\n(ปิดคำขอที่รออยู่ ${closedCount} รายการ)` : ''}` 
+    });
+    
     res.send(htmlPage("ปิด QR", `
       <div class="card warn">
         <div class="icon">⛔</div>
         <h2>ปิดรับคำขอแล้ว</h2>
         <p style="text-align: center;">ตู้ <span class="mono">${id}</span> ปิดรับคำขอชั่วคราว</p>
+        ${closedCount > 0 ? `<p style="text-align: center;" class="muted">ปิดคำขอที่รออยู่ ${closedCount} รายการ</p>` : ''}
         <div class="btn-group">
           <a class="btn" href="/enable?locker_id=${id}">🔓 เปิดรับคำขออีกครั้ง</a>
         </div>
