@@ -35,24 +35,272 @@ function htmlPage(title, body, scripts = "") {
   return `<!doctype html>
 <html lang="th">
 <head>
-<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>${title}</title><link rel="icon" href="data:,">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>${title}</title>
+<link rel="icon" href="data:,">
 <style>
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto;max-width:720px;margin:32px auto;padding:0 16px;line-height:1.6}
-  .card{border:1px solid #ddd;border-radius:12px;padding:20px;margin:16px 0}
-  .btn{display:inline-block;padding:10px 14px;border-radius:10px;border:1px solid #ccc;text-decoration:none}
-  .ok{background:#e6ffed;border-color:#b7f5c0}
-  .warn{background:#fff8e1;border-color:#ffe08a}
-  .err{background:#ffe8e8;border-color:#ffb3b3}
-  .muted{color:#555}
-  .mono{font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
-  .pill{display:inline-block;padding:2px 8px;border-radius:999px;border:1px solid #ddd;font-size:12px}
-  .pill.ok{background:#e6ffed;border-color:#b7f5c0}
-  .pill.err{background:#ffe8e8;border-color:#ffb3b3}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    line-height: 1.6;
+  }
+  
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .header h1 {
+    font-size: 28px;
+    color: #667eea;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  
+  .header p {
+    color: #64748b;
+    font-size: 14px;
+  }
+  
+  .card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .card h2 {
+    font-size: 22px;
+    margin-bottom: 16px;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .card h2::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+  }
+  
+  .card p {
+    color: #475569;
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+  
+  .card.ok {
+    background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+    border: none;
+    color: #166534;
+  }
+  
+  .card.ok h2, .card.ok p {
+    color: #166534;
+  }
+  
+  .card.warn {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+    border: none;
+    color: #92400e;
+  }
+  
+  .card.warn h2, .card.warn p {
+    color: #92400e;
+  }
+  
+  .card.err {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    border: none;
+    color: #fff;
+  }
+  
+  .card.err h2, .card.err p, .card.err .mono {
+    color: #fff;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  }
+  
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  }
+  
+  .btn:active {
+    transform: translateY(0);
+  }
+  
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  
+  .mono {
+    font-family: 'Courier New', Courier, monospace;
+    background: rgba(102, 126, 234, 0.1);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #667eea;
+    font-weight: 600;
+  }
+  
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 2px solid;
+    margin: 4px;
+  }
+  
+  .pill.ok {
+    background: #d1fae5;
+    border-color: #10b981;
+    color: #065f46;
+  }
+  
+  .pill.err {
+    background: #fee2e2;
+    border-color: #ef4444;
+    color: #991b1b;
+  }
+  
+  .pill.pending {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #92400e;
+  }
+  
+  .status-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  
+  .status-box {
+    background: rgba(102, 126, 234, 0.05);
+    padding: 16px;
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid rgba(102, 126, 234, 0.2);
+  }
+  
+  .status-box .label {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+  
+  .status-box .value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+  }
+  
+  .icon {
+    font-size: 48px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  
+  .spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(102, 126, 234, 0.3);
+    border-radius: 50%;
+    border-top-color: #667eea;
+    animation: spin 0.8s linear infinite;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  .muted {
+    color: #94a3b8;
+    font-size: 13px;
+  }
+  
+  #done {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px dashed rgba(102, 126, 234, 0.2);
+  }
+  
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .info-row:last-child {
+    border-bottom: none;
+  }
+  
+  .info-label {
+    font-weight: 600;
+    color: #64748b;
+  }
+  
+  .info-value {
+    font-weight: 700;
+    color: #1e293b;
+  }
 </style>
 </head>
 <body>
+<div class="container">
 ${body}
+</div>
 <script>${scripts}</script>
 </body>
 </html>`;
@@ -128,13 +376,28 @@ function publishLockerUpdate(locker_id) {
 // ====== Pages ======
 app.get("/", (req, res) => {
   res.send(htmlPage("Smart Locker MVP", `
-    <h1>Smart Locker MVP</h1>
+    <div class="header">
+      <h1>🔐 Smart Locker</h1>
+      <p>ระบบจัดการตู้ล็อกเกอร์อัจฉริยะ</p>
+    </div>
+    
     <div class="card">
-      <p>เมนู LINE: เปิด/ปิด QR, สถานะ, ปลดล็อก → เว็บอัปเดต <b>real-time</b></p>
-      <p class="muted">ENV: <span class="mono">BASE_URL</span>, <span class="mono">LINE_CHANNEL_ACCESS_TOKEN</span>, <span class="mono">OWNER_USER_ID</span></p>
-      <p>
-        <a class="btn" href="/scan?locker_id=LOCKER001">ส่งคำขอเปิดตู้ Locker</a>
-        <a class="btn" href="/locker?locker_id=LOCKER001">ดูสถานะตู้ (real-time)</a>
+      <h2>💡 คุณสมบัติ</h2>
+      <p>✨ เปิด/ปิด QR รับคำขอผ่าน LINE</p>
+      <p>📊 ติดตามสถานะแบบ Real-time</p>
+      <p>🔓 ปลดล็อกตู้จากระยะไหล</p>
+      
+      <div class="btn-group">
+        <a class="btn" href="/scan?locker_id=LOCKER001">📱 ส่งคำขอเปิดตู้</a>
+        <a class="btn" href="/locker?locker_id=LOCKER001">📈 ดูสถานะตู้</a>
+      </div>
+    </div>
+    
+    <div class="card">
+      <p class="muted" style="text-align: center; margin: 0;">
+        <span class="mono">BASE_URL</span> · 
+        <span class="mono">LINE_TOKEN</span> · 
+        <span class="mono">OWNER_USER_ID</span>
       </p>
     </div>
   `));
@@ -146,8 +409,13 @@ app.get("/scan", async (req, res) => {
   const locker = getLocker(locker_id);
 
   if (locker.disabled) {
-    res.send(htmlPage("Locker disabled", `
-      <div class="card err"><h2>⛔ ปิดรับคำขอชั่วคราว</h2><p>ตู้ <b>${locker_id}</b> ถูกปิดโดยเจ้าของ</p></div>
+    res.send(htmlPage("ตู้ปิดใช้งาน", `
+      <div class="card err">
+        <div class="icon">⛔</div>
+        <h2>ปิดรับคำขอชั่วคราว</h2>
+        <p style="text-align: center;">ตู้ <span class="mono">${locker_id}</span> ถูกปิดโดยเจ้าของ</p>
+        <p style="text-align: center;" class="muted">กรุณาติดต่อเจ้าของตู้</p>
+      </div>
     `));
     return;
   }
@@ -159,25 +427,62 @@ app.get("/scan", async (req, res) => {
   const statusUrl = `${BASE_URL}/status?request_id=${encodeURIComponent(request_id)}`;
   const scripts = `
     const out = document.getElementById('status');
+    const icon = document.getElementById('statusIcon');
+    const doneBox = document.getElementById('done');
     const rid = ${JSON.stringify(request_id)};
     const es = new EventSource('/status-stream?request_id=' + encodeURIComponent(rid));
+    
     es.addEventListener('update', (ev) => {
       const data = JSON.parse(ev.data);
       if (data?.payload?.status) {
-        out.textContent = data.payload.status;
-        if (['approved','denied','closed'].includes(data.payload.status)) {
-          document.getElementById('done').style.display = 'block';
+        const status = data.payload.status;
+        out.textContent = status;
+        
+        if (status === 'approved') {
+          out.className = 'pill ok';
+          out.textContent = '✅ อนุมัติแล้ว';
+          icon.textContent = '🎉';
+          doneBox.style.display = 'block';
+        } else if (status === 'denied') {
+          out.className = 'pill err';
+          out.textContent = '❌ ถูกปฏิเสธ';
+          icon.textContent = '😔';
+          doneBox.style.display = 'block';
+        } else if (status === 'closed') {
+          out.className = 'pill err';
+          out.textContent = '⛔ ปิดคำขอ';
+          icon.textContent = '🚫';
+          doneBox.style.display = 'block';
         }
       }
     });
   `;
-  res.send(htmlPage("รออนุมัติ (Real-time)", `
+  
+  res.send(htmlPage("รออนุมัติ", `
     <div class="card">
-      <h2>📨 ส่งคำขอไปยังเจ้าของแล้ว</h2>
-      <p>request_id: <span class="mono">${request_id}</span></p>
-      <p>สถานะ (real-time): <span id="status" class="pill">pending</span></p>
-      <div id="done" style="display:none;margin-top:8px">
-        <a class="btn" href="${statusUrl}">ดูสรุปผล</a>
+      <div class="icon" id="statusIcon">⏳</div>
+      <h2>ส่งคำขอแล้ว</h2>
+      
+      <div class="info-row">
+        <span class="info-label">Request ID:</span>
+        <span class="mono">${request_id}</span>
+      </div>
+      
+      <div class="info-row">
+        <span class="info-label">ตู้:</span>
+        <span class="info-value">${locker_id}</span>
+      </div>
+      
+      <div style="text-align: center; margin-top: 20px;">
+        <p class="muted" style="margin-bottom: 12px;">สถานะปัจจุบัน</p>
+        <span id="status" class="pill pending">
+          <span class="spinner"></span>
+          รอเจ้าของตอบกลับ
+        </span>
+      </div>
+      
+      <div id="done" style="display:none;">
+        <a class="btn" href="${statusUrl}">📋 ดูรายละเอียดผล</a>
       </div>
     </div>
   `, scripts));
@@ -187,53 +492,116 @@ app.get("/scan", async (req, res) => {
 app.get("/status", (req, res) => {
   const rid = (req.query.request_id || "").toString();
   if (!rid || !requests.has(rid)) {
-    res.status(404).send(htmlPage("ไม่พบคำขอ", `<div class="card err"><h2>❌ ไม่พบ request_id นี้</h2></div>`));
+    res.status(404).send(htmlPage("ไม่พบคำขอ", `
+      <div class="card err">
+        <div class="icon">❓</div>
+        <h2>ไม่พบคำขอนี้</h2>
+        <p style="text-align: center;">ไม่พบ Request ID ในระบบ</p>
+      </div>
+    `));
     return;
   }
+  
   const reqObj = requests.get(rid);
-  const mapTxt = {
-    pending: "กำลังรอเจ้าของตัดสินใจ…",
-    approved: "✅ อนุมัติแล้ว (เดโม: ถือว่าเปิดตู้สำเร็จ)",
-    denied: "❌ ถูกปฏิเสธ",
-    closed: "⛔ ปิดคำขอ"
+  const statusMap = {
+    pending: { text: 'กำลังรอเจ้าของตัดสินใจ...', icon: '⏳', class: 'pending' },
+    approved: { text: 'อนุมัติแล้ว (ตู้เปิดสำเร็จ)', icon: '✅', class: 'ok' },
+    denied: { text: 'ถูกปฏิเสธโดยเจ้าของ', icon: '❌', class: 'err' },
+    closed: { text: 'ปิดคำขอ', icon: '⛔', class: 'err' }
   };
+  
+  const statusInfo = statusMap[reqObj.status] || statusMap.pending;
+  const cardClass = reqObj.status === 'approved' ? 'ok' : reqObj.status === 'pending' ? '' : 'err';
+  
   res.send(htmlPage("สถานะคำขอ", `
-    <div class="card">
+    <div class="card ${cardClass}">
+      <div class="icon">${statusInfo.icon}</div>
       <h2>สถานะคำขอ</h2>
-      <p>request_id: <span class="mono">${rid}</span></p>
-      <p>ตู้: <b>${reqObj.locker_id}</b></p>
-      <p>สถานะ: <b>${reqObj.status}</b> — ${mapTxt[reqObj.status] || ""}</p>
+      
+      <div class="info-row">
+        <span class="info-label">Request ID:</span>
+        <span class="mono">${rid}</span>
+      </div>
+      
+      <div class="info-row">
+        <span class="info-label">ตู้:</span>
+        <span class="info-value">${reqObj.locker_id}</span>
+      </div>
+      
+      <div style="text-align: center; margin-top: 20px;">
+        <span class="pill ${statusInfo.class}">${statusInfo.text}</span>
+      </div>
     </div>
   `));
 });
 
-// หน้า “สถานะตู้” (QR + Door) แบบ real-time
+// หน้า "สถานะตู้" (QR + Door) แบบ real-time
 app.get("/locker", (req, res) => {
   const locker_id = (req.query.locker_id || "LOCKER001").toString();
   const l = getLocker(locker_id);
+  
   const scripts = `
     const lid = ${JSON.stringify(locker_id)};
-    const qrBadge   = document.getElementById('qrStatus');
-    const doorBadge = document.getElementById('doorStatus');
+    const qrBox = document.getElementById('qrBox');
+    const doorBox = document.getElementById('doorBox');
+    
     const es = new EventSource('/locker-stream?locker_id=' + encodeURIComponent(lid));
     es.addEventListener('update', (ev) => {
       const data = JSON.parse(ev.data)?.payload;
       if (!data) return;
-      // QR
-      qrBadge.textContent = data.disabled ? 'QR: DISABLED' : 'QR: ENABLED';
-      qrBadge.className = 'pill ' + (data.disabled ? 'err' : 'ok');
-      // Door
-      doorBadge.textContent = data.doorOpen ? 'DOOR: OPEN' : 'DOOR: CLOSED';
-      doorBadge.className = 'pill ' + (data.doorOpen ? 'ok' : '');
+      
+      // QR Status
+      if (data.disabled) {
+        qrBox.innerHTML = '<div class="label">QR CODE</div><div class="value" style="color: #dc2626;">🔴 ปิด</div>';
+        qrBox.style.borderColor = '#fecaca';
+        qrBox.style.background = '#fee2e2';
+      } else {
+        qrBox.innerHTML = '<div class="label">QR CODE</div><div class="value" style="color: #16a34a;">🟢 เปิด</div>';
+        qrBox.style.borderColor = '#bbf7d0';
+        qrBox.style.background = '#dcfce7';
+      }
+      
+      // Door Status
+      if (data.doorOpen) {
+        doorBox.innerHTML = '<div class="label">ประตู</div><div class="value" style="color: #16a34a;">🔓 เปิด</div>';
+        doorBox.style.borderColor = '#bbf7d0';
+        doorBox.style.background = '#dcfce7';
+      } else {
+        doorBox.innerHTML = '<div class="label">ประตู</div><div class="value" style="color: #64748b;">🔒 ปิด</div>';
+        doorBox.style.borderColor = 'rgba(102, 126, 234, 0.2)';
+        doorBox.style.background = 'rgba(102, 126, 234, 0.05)';
+      }
     });
   `;
-  res.send(htmlPage("สถานะตู้ (Real-time)", `
+  
+  const qrColor = l.disabled ? 'color: #dc2626;' : 'color: #16a34a;';
+  const qrBg = l.disabled ? 'background: #fee2e2; border-color: #fecaca;' : 'background: #dcfce7; border-color: #bbf7d0;';
+  const doorColor = l.doorOpen ? 'color: #16a34a;' : 'color: #64748b;';
+  const doorBg = l.doorOpen ? 'background: #dcfce7; border-color: #bbf7d0;' : '';
+  
+  res.send(htmlPage("สถานะตู้", `
+    <div class="header">
+      <h1>📊 สถานะตู้</h1>
+      <p class="mono">${locker_id}</p>
+    </div>
+    
     <div class="card">
-      <h2>ตู้ <span class="mono">${locker_id}</span></h2>
-      <p>
-        <span id="qrStatus" class="pill ${l.disabled ? 'err' : 'ok'}">${l.disabled ? 'QR: DISABLED' : 'QR: ENABLED'}</span>
-        &nbsp;
-        <span id="doorStatus" class="pill ${l.doorOpen ? 'ok' : ''}">${l.doorOpen ? 'DOOR: OPEN' : 'DOOR: CLOSED'}</span>
+      <h2>Real-time Status</h2>
+      
+      <div class="status-grid">
+        <div class="status-box" id="qrBox" style="${qrBg}">
+          <div class="label">QR CODE</div>
+          <div class="value" style="${qrColor}">${l.disabled ? '🔴 ปิด' : '🟢 เปิด'}</div>
+        </div>
+        
+        <div class="status-box" id="doorBox" style="${doorBg}">
+          <div class="label">ประตู</div>
+          <div class="value" style="${doorColor}">${l.doorOpen ? '🔓 เปิด' : '🔒 ปิด'}</div>
+        </div>
+      </div>
+      
+      <p class="muted" style="text-align: center; margin-top: 20px;">
+        🔄 อัปเดตแบบเรียลไทม์
       </p>
     </div>
   `, scripts));
@@ -271,23 +639,38 @@ app.get("/decision", async (req, res) => {
     locker.disabled = true;
     publishLockerUpdate(id);
     await linePush(OWNER_USER_ID, { type: "text", text: `⛔ ปิด QR ของตู้ ${id} แล้ว` });
-    res.send(htmlPage("QR Disabled", `
-      <div class="card warn"><h2>⛔ ปิดรับคำขอของตู้ ${id}</h2>
-      <p>เปิดใหม่ที่ <a href="/enable?locker_id=${id}">/enable?locker_id=${id}</a></p></div>
+    res.send(htmlPage("ปิด QR", `
+      <div class="card warn">
+        <div class="icon">⛔</div>
+        <h2>ปิดรับคำขอแล้ว</h2>
+        <p style="text-align: center;">ตู้ <span class="mono">${id}</span> ปิดรับคำขอชั่วคราว</p>
+        <div class="btn-group">
+          <a class="btn" href="/enable?locker_id=${id}">🔓 เปิดรับคำขออีกครั้ง</a>
+        </div>
+      </div>
     `));
     return;
   }
 
   const rid = (request_id || "").toString();
   if (!rid || !requests.has(rid)) {
-    res.status(404).send(htmlPage("Not found", `<div class="card err"><h2>❌ ไม่พบคำขอ</h2></div>`));
+    res.status(404).send(htmlPage("Not found", `
+      <div class="card err">
+        <div class="icon">❓</div>
+        <h2>ไม่พบคำขอ</h2>
+      </div>
+    `));
     return;
   }
 
   const reqObj = requests.get(rid);
   if (reqObj.status !== "pending") {
-    res.send(htmlPage("Already decided", `
-      <div class="card warn"><h2>คำขอถูกตัดสินใจแล้ว</h2><p>สถานะ: <b>${reqObj.status}</b></p></div>
+    res.send(htmlPage("ตัดสินใจแล้ว", `
+      <div class="card warn">
+        <div class="icon">⚠️</div>
+        <h2>คำขอถูกตัดสินใจแล้ว</h2>
+        <p style="text-align: center;">สถานะ: <span class="pill">${reqObj.status}</span></p>
+      </div>
     `));
     return;
   }
@@ -296,7 +679,14 @@ app.get("/decision", async (req, res) => {
     reqObj.status = "approved";
     publishRequestUpdate(rid);
     await linePush(OWNER_USER_ID, { type: "text", text: `✅ อนุมัติคำขอ ${rid} ของตู้ ${reqObj.locker_id}` });
-    res.send(htmlPage("Approved", `<div class="card ok"><h2>✅ อนุมัติสำเร็จ</h2><p>request_id: <span class="mono">${rid}</span></p></div>`));
+    res.send(htmlPage("อนุมัติแล้ว", `
+      <div class="card ok">
+        <div class="icon">✅</div>
+        <h2>อนุมัติสำเร็จ</h2>
+        <p style="text-align: center;">คำขอ <span class="mono">${rid}</span></p>
+        <p style="text-align: center;">ได้รับการอนุมัติแล้ว</p>
+      </div>
+    `));
     return;
   }
 
@@ -304,11 +694,23 @@ app.get("/decision", async (req, res) => {
     reqObj.status = "denied";
     publishRequestUpdate(rid);
     await linePush(OWNER_USER_ID, { type: "text", text: `❌ ปฏิเสธคำขอ ${rid} ของตู้ ${reqObj.locker_id}` });
-    res.send(htmlPage("Denied", `<div class="card err"><h2>❌ ปฏิเสธแล้ว</h2><p>request_id: <span class="mono">${rid}</span></p></div>`));
+    res.send(htmlPage("ปฏิเสธแล้ว", `
+      <div class="card err">
+        <div class="icon">❌</div>
+        <h2>ปฏิเสธแล้ว</h2>
+        <p style="text-align: center;">คำขอ <span class="mono">${rid}</span></p>
+        <p style="text-align: center;">ถูกปฏิเสธแล้ว</p>
+      </div>
+    `));
     return;
   }
 
-  res.status(400).send(htmlPage("Bad request", `<div class="card err"><h2>action ไม่ถูกต้อง</h2></div>`));
+  res.status(400).send(htmlPage("Bad request", `
+    <div class="card err">
+      <div class="icon">⚠️</div>
+      <h2>คำสั่งไม่ถูกต้อง</h2>
+    </div>
+  `));
 });
 
 // เปิด QR ใหม่ (URI)
@@ -318,9 +720,15 @@ app.get("/enable", async (req, res) => {
   locker.disabled = false;
   publishLockerUpdate(locker_id);
   await linePush(OWNER_USER_ID, { type: "text", text: `✅ เปิด QR ของตู้ ${locker_id} แล้ว` });
-  res.send(htmlPage("Enabled", `
-    <div class="card ok"><h2>✅ เปิดรับคำขอของตู้ ${locker_id}</h2>
-    <p><a class="btn" href="/locker?locker_id=${locker_id}">หน้าสถานะตู้ (real-time)</a></p></div>
+  res.send(htmlPage("เปิดรับคำขอ", `
+    <div class="card ok">
+      <div class="icon">✅</div>
+      <h2>เปิดรับคำขอแล้ว</h2>
+      <p style="text-align: center;">ตู้ <span class="mono">${locker_id}</span></p>
+      <div class="btn-group">
+        <a class="btn" href="/locker?locker_id=${locker_id}">📊 ดูสถานะตู้</a>
+      </div>
+    </div>
   `));
 });
 
@@ -332,14 +740,32 @@ app.get("/door", async (req, res) => {
   if (action === "open") {
     l.doorOpen = true;
     publishLockerUpdate(locker_id);
-    return res.send(htmlPage("Door Open", `<div class="card ok"><h2>🔓 ประตู ${locker_id} เปิด</h2></div>`));
+    return res.send(htmlPage("เปิดประตู", `
+      <div class="card ok">
+        <div class="icon">🔓</div>
+        <h2>เปิดประตูแล้ว</h2>
+        <p style="text-align: center;">ตู้ <span class="mono">${locker_id}</span></p>
+      </div>
+    `));
   }
   if (action === "close") {
     l.doorOpen = false;
     publishLockerUpdate(locker_id);
-    return res.send(htmlPage("Door Close", `<div class="card warn"><h2>🔒 ประตู ${locker_id} ปิด</h2></div>`));
+    return res.send(htmlPage("ปิดประตู", `
+      <div class="card warn">
+        <div class="icon">🔒</div>
+        <h2>ปิดประตูแล้ว</h2>
+        <p style="text-align: center;">ตู้ <span class="mono">${locker_id}</span></p>
+      </div>
+    `));
   }
-  return res.status(400).send(htmlPage("Bad request", `<div class="card err"><h2>action ต้องเป็น open|close</h2></div>`));
+  return res.status(400).send(htmlPage("Bad request", `
+    <div class="card err">
+      <div class="icon">⚠️</div>
+      <h2>คำสั่งไม่ถูกต้อง</h2>
+      <p style="text-align: center;">action ต้องเป็น open หรือ close</p>
+    </div>
+  `));
 });
 
 // ====== LINE Webhook (ข้อความ + postback) ======
@@ -381,16 +807,14 @@ async function handleOwnerCommand(text, replyToken) {
     const id = parseLockerId(text);
     const rid = nanoid(10);
     requests.set(rid, { locker_id: id, status: "approved", createdAt: Date.now() });
-    // เดโม: เปิดประตู 10 วินาทีแล้วปิดเอง
     const l = getLocker(id);
     l.doorOpen = true;
-publishLockerUpdate(id);
-await lineReply(replyToken, { type: "text", text: `🔓 ปลดล็อกตู้ ${id}\nrequest_id: ${rid}\n` });
+    publishLockerUpdate(id);
+    await lineReply(replyToken, { type: "text", text: `🔓 ปลดล็อกตู้ ${id}\nrequest_id: ${rid}\n` });
     publishRequestUpdate(rid);
     return;
   }
 
-  // เมนูช่วยเหลือ
   await lineReply(replyToken, {
     type: "text",
     text:
@@ -453,8 +877,8 @@ app.post("/webhook", async (req, res) => {
           requests.set(rid, { locker_id: lockerId, status: "approved", createdAt: Date.now() });
           const l = getLocker(lockerId);
           l.doorOpen = true;
-publishLockerUpdate(lockerId);
-if (ev.replyToken) await lineReply(ev.replyToken, { type: "text", text: `🔓 ปลดล็อกตู้ ${lockerId}\nrequest_id: ${rid}` });
+          publishLockerUpdate(lockerId);
+          if (ev.replyToken) await lineReply(ev.replyToken, { type: "text", text: `🔓 ปลดล็อกตู้ ${lockerId}\nrequest_id: ${rid}` });
           publishRequestUpdate(rid);
           continue;
         }
