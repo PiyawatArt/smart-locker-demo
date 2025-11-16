@@ -647,9 +647,6 @@ app.get("/decision", async (req, res) => {
         <div class="icon">⛔</div>
         <h2>ปิดรับคำขอแล้ว</h2>
         <p style="text-align: center;">ตู้ <span class="mono">${id}</span> ปิดรับคำขอชั่วคราว</p>
-        <div class="btn-group">
-          <a class="btn" href="/enable?locker_id=${id}">🔓 เปิดรับคำขออีกครั้ง</a>
-        </div>
       </div>
     `));
     return;
