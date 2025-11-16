@@ -44,7 +44,7 @@ function htmlPage(title, body, scripts = "") {
   
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
+    background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
     min-height: 100vh;
     padding: 20px;
     line-height: 1.6;
@@ -67,7 +67,7 @@ function htmlPage(title, body, scripts = "") {
   
   .header h1 {
     font-size: 28px;
-    color: #2F80ED;
+    color: #1976D2;
     margin-bottom: 8px;
     font-weight: 700;
   }
@@ -101,7 +101,7 @@ function htmlPage(title, body, scripts = "") {
     display: inline-block;
     width: 4px;
     height: 24px;
-    background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
+    background: linear-gradient(135deg, #90CAF9 0%, #64B5F6 100%);
     border-radius: 2px;
   }
   
@@ -112,33 +112,33 @@ function htmlPage(title, body, scripts = "") {
   }
   
   .card.ok {
-    background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+    background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
     border: none;
-    color: #166534;
+    color: #2E7D32;
   }
   
   .card.ok h2, .card.ok p {
-    color: #166534;
+    color: #2E7D32;
   }
   
   .card.warn {
-    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+    background: linear-gradient(135deg, #FFF8E1 0%, #FFE082 100%);
     border: none;
-    color: #92400e;
+    color: #F57F17;
   }
   
   .card.warn h2, .card.warn p {
-    color: #92400e;
+    color: #F57F17;
   }
   
   .card.err {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%);
     border: none;
-    color: #fff;
+    color: #C62828;
   }
   
   .card.err h2, .card.err p, .card.err .mono {
-    color: #fff;
+    color: #C62828;
   }
   
   .btn {
@@ -152,14 +152,14 @@ function htmlPage(title, body, scripts = "") {
     border: none;
     cursor: pointer;
     text-align: center;
-    background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
+    background: linear-gradient(135deg, #90CAF9 0%, #64B5F6 100%);
     color: white;
-    box-shadow: 0 4px 15px rgba(47, 128, 237, 0.4);
+    box-shadow: 0 4px 15px rgba(100, 181, 246, 0.3);
   }
   
   .btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(47, 128, 237, 0.6);
+    box-shadow: 0 6px 20px rgba(100, 181, 246, 0.5);
   }
   
   .btn:active {
@@ -175,11 +175,11 @@ function htmlPage(title, body, scripts = "") {
   
   .mono {
     font-family: 'Courier New', Courier, monospace;
-    background: rgba(47, 128, 237, 0.1);
+    background: rgba(100, 181, 246, 0.15);
     padding: 4px 10px;
     border-radius: 6px;
     font-size: 13px;
-    color: #2F80ED;
+    color: #1976D2;
     font-weight: 600;
   }
   
@@ -196,15 +196,15 @@ function htmlPage(title, body, scripts = "") {
   }
   
   .pill.ok {
-    background: #d1fae5;
-    border-color: #10b981;
-    color: #065f46;
+    background: #E8F5E9;
+    border-color: #66BB6A;
+    color: #2E7D32;
   }
   
   .pill.err {
-    background: #fee2e2;
-    border-color: #ef4444;
-    color: #991b1b;
+    background: #FFEBEE;
+    border-color: #EF5350;
+    color: #C62828;
   }
   
   .pill.pending {
@@ -221,11 +221,11 @@ function htmlPage(title, body, scripts = "") {
   }
   
   .status-box {
-    background: rgba(47, 128, 237, 0.05);
+    background: rgba(100, 181, 246, 0.08);
     padding: 16px;
     border-radius: 12px;
     text-align: center;
-    border: 2px solid rgba(47, 128, 237, 0.2);
+    border: 2px solid rgba(100, 181, 246, 0.2);
   }
   
   .status-box .label {
@@ -253,9 +253,9 @@ function htmlPage(title, body, scripts = "") {
     display: inline-block;
     width: 20px;
     height: 20px;
-    border: 3px solid rgba(47, 128, 237, 0.3);
+    border: 3px solid rgba(100, 181, 246, 0.3);
     border-radius: 50%;
-    border-top-color: #2F80ED;
+    border-top-color: #64B5F6;
     animation: spin 0.8s linear infinite;
   }
   
@@ -271,7 +271,7 @@ function htmlPage(title, body, scripts = "") {
   #done {
     margin-top: 20px;
     padding-top: 20px;
-    border-top: 2px dashed rgba(47, 128, 237, 0.2);
+    border-top: 2px dashed rgba(100, 181, 246, 0.3);
   }
   
   .info-row {
@@ -395,7 +395,7 @@ app.get("/", (req, res) => {
       </div>
     </div>
     
-    <div class="card" style="background: linear-gradient(135deg, rgba(86, 204, 242, 0.1) 0%, rgba(47, 128, 237, 0.1) 100%); border: 2px solid rgba(47, 128, 237, 0.3);">
+    <div class="card">
       <h2>📋 วิธีใช้งาน</h2>
       <p><strong>1.</strong> สแกน QR Code เพื่อขอเข้าใช้งานตู้</p>
       <p><strong>2.</strong> รอเจ้าของอนุมัติคำขอ</p>
@@ -556,32 +556,32 @@ app.get("/locker", (req, res) => {
       
       // QR Status
       if (data.disabled) {
-        qrBox.innerHTML = '<div class="label">QR CODE</div><div class="value" style="color: #dc2626;">🔴 ปิด</div>';
-        qrBox.style.borderColor = '#fecaca';
-        qrBox.style.background = '#fee2e2';
+        qrBox.innerHTML = '<div class="label">QR CODE</div><div class="value" style="color: #C62828;">🔴 ปิด</div>';
+        qrBox.style.borderColor = '#FFCDD2';
+        qrBox.style.background = '#FFEBEE';
       } else {
-        qrBox.innerHTML = '<div class="label">QR CODE</div><div class="value" style="color: #16a34a;">🟢 เปิด</div>';
-        qrBox.style.borderColor = '#bbf7d0';
-        qrBox.style.background = '#dcfce7';
+        qrBox.innerHTML = '<div class="label">QR CODE</div><div class="value" style="color: #2E7D32;">🟢 เปิด</div>';
+        qrBox.style.borderColor = '#C8E6C9';
+        qrBox.style.background = '#E8F5E9';
       }
       
       // Door Status
       if (data.doorOpen) {
-        doorBox.innerHTML = '<div class="label">ประตู</div><div class="value" style="color: #16a34a;">🔓 เปิด</div>';
-        doorBox.style.borderColor = '#bbf7d0';
-        doorBox.style.background = '#dcfce7';
+        doorBox.innerHTML = '<div class="label">ประตู</div><div class="value" style="color: #2E7D32;">🔓 เปิด</div>';
+        doorBox.style.borderColor = '#C8E6C9';
+        doorBox.style.background = '#E8F5E9';
       } else {
         doorBox.innerHTML = '<div class="label">ประตู</div><div class="value" style="color: #64748b;">🔒 ปิด</div>';
-        doorBox.style.borderColor = 'rgba(47, 128, 237, 0.2)';
-        doorBox.style.background = 'rgba(47, 128, 237, 0.05)';
+        doorBox.style.borderColor = 'rgba(100, 181, 246, 0.2)';
+        doorBox.style.background = 'rgba(100, 181, 246, 0.08)';
       }
     });
   `;
   
-  const qrColor = l.disabled ? 'color: #dc2626;' : 'color: #16a34a;';
-  const qrBg = l.disabled ? 'background: #fee2e2; border-color: #fecaca;' : 'background: #dcfce7; border-color: #bbf7d0;';
-  const doorColor = l.doorOpen ? 'color: #16a34a;' : 'color: #64748b;';
-  const doorBg = l.doorOpen ? 'background: #dcfce7; border-color: #bbf7d0;' : '';
+  const qrColor = l.disabled ? 'color: #C62828;' : 'color: #2E7D32;';
+  const qrBg = l.disabled ? 'background: #FFEBEE; border-color: #FFCDD2;' : 'background: #E8F5E9; border-color: #C8E6C9;';
+  const doorColor = l.doorOpen ? 'color: #2E7D32;' : 'color: #64748b;';
+  const doorBg = l.doorOpen ? 'background: #E8F5E9; border-color: #C8E6C9;' : '';
   
   res.send(htmlPage("สถานะตู้", `
     <div class="header">
