@@ -1,4 +1,4 @@
-// server.mjs — Smart Locker MVP + LINE + Rich Menu + Real-time (SSE) + Dual status (QR & Door)
+// server.mjs — DROPMATE + LINE + Rich Menu + Real-time (SSE) + Dual status (QR & Door)
 import 'dotenv/config';
 import express from 'express';
 import { nanoid } from 'nanoid';
@@ -44,7 +44,7 @@ function htmlPage(title, body, scripts = "") {
   
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
     min-height: 100vh;
     padding: 20px;
     line-height: 1.6;
@@ -67,7 +67,7 @@ function htmlPage(title, body, scripts = "") {
   
   .header h1 {
     font-size: 28px;
-    color: #667eea;
+    color: #2F80ED;
     margin-bottom: 8px;
     font-weight: 700;
   }
@@ -101,7 +101,7 @@ function htmlPage(title, body, scripts = "") {
     display: inline-block;
     width: 4px;
     height: 24px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
     border-radius: 2px;
   }
   
@@ -152,14 +152,14 @@ function htmlPage(title, body, scripts = "") {
     border: none;
     cursor: pointer;
     text-align: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
     color: white;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 15px rgba(47, 128, 237, 0.4);
   }
   
   .btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    box-shadow: 0 6px 20px rgba(47, 128, 237, 0.6);
   }
   
   .btn:active {
@@ -175,11 +175,11 @@ function htmlPage(title, body, scripts = "") {
   
   .mono {
     font-family: 'Courier New', Courier, monospace;
-    background: rgba(102, 126, 234, 0.1);
+    background: rgba(47, 128, 237, 0.1);
     padding: 4px 10px;
     border-radius: 6px;
     font-size: 13px;
-    color: #667eea;
+    color: #2F80ED;
     font-weight: 600;
   }
   
@@ -221,11 +221,11 @@ function htmlPage(title, body, scripts = "") {
   }
   
   .status-box {
-    background: rgba(102, 126, 234, 0.05);
+    background: rgba(47, 128, 237, 0.05);
     padding: 16px;
     border-radius: 12px;
     text-align: center;
-    border: 2px solid rgba(102, 126, 234, 0.2);
+    border: 2px solid rgba(47, 128, 237, 0.2);
   }
   
   .status-box .label {
@@ -253,9 +253,9 @@ function htmlPage(title, body, scripts = "") {
     display: inline-block;
     width: 20px;
     height: 20px;
-    border: 3px solid rgba(102, 126, 234, 0.3);
+    border: 3px solid rgba(47, 128, 237, 0.3);
     border-radius: 50%;
-    border-top-color: #667eea;
+    border-top-color: #2F80ED;
     animation: spin 0.8s linear infinite;
   }
   
@@ -271,7 +271,7 @@ function htmlPage(title, body, scripts = "") {
   #done {
     margin-top: 20px;
     padding-top: 20px;
-    border-top: 2px dashed rgba(102, 126, 234, 0.2);
+    border-top: 2px dashed rgba(47, 128, 237, 0.2);
   }
   
   .info-row {
@@ -375,9 +375,9 @@ function publishLockerUpdate(locker_id) {
 
 // ====== Pages ======
 app.get("/", (req, res) => {
-  res.send(htmlPage("Smart Locker MVP", `
+  res.send(htmlPage("DROPMATE", `
     <div class="header">
-      <h1>🔐 Smart Locker</h1>
+      <h1>📦 DROPMATE</h1>
       <p>ระบบจัดการตู้ล็อกเกอร์อัจฉริยะ</p>
     </div>
     
@@ -386,6 +386,8 @@ app.get("/", (req, res) => {
       <p>✨ เปิด/ปิด QR รับคำขอผ่าน LINE</p>
       <p>📊 ติดตามสถานะแบบ Real-time</p>
       <p>🔓 ปลดล็อกตู้จากระยะไหล</p>
+      <p>🔐 ระบบความปลอดภัยขั้นสูง</p>
+      <p>⚡ อัปเดตสถานะทันที</p>
       
       <div class="btn-group">
         <a class="btn" href="/scan?locker_id=LOCKER001">📱 ส่งคำขอเปิดตู้</a>
@@ -393,11 +395,13 @@ app.get("/", (req, res) => {
       </div>
     </div>
     
-    <div class="card">
-      <p class="muted" style="text-align: center; margin: 0;">
-        <span class="mono">BASE_URL</span> · 
-        <span class="mono">LINE_TOKEN</span> · 
-        <span class="mono">OWNER_USER_ID</span>
+    <div class="card" style="background: linear-gradient(135deg, rgba(86, 204, 242, 0.1) 0%, rgba(47, 128, 237, 0.1) 100%); border: 2px solid rgba(47, 128, 237, 0.3);">
+      <h2>📋 วิธีใช้งาน</h2>
+      <p><strong>1.</strong> สแกน QR Code เพื่อขอเข้าใช้งานตู้</p>
+      <p><strong>2.</strong> รอเจ้าของอนุมัติคำขอ</p>
+      <p><strong>3.</strong> เมื่ออนุมัติแล้ว ตู้จะเปิดให้ใช้งาน</p>
+      <p class="muted" style="text-align: center; margin-top: 16px;">
+        💡 สถานะจะอัปเดตแบบเรียลไทม์
       </p>
     </div>
   `));
@@ -568,8 +572,8 @@ app.get("/locker", (req, res) => {
         doorBox.style.background = '#dcfce7';
       } else {
         doorBox.innerHTML = '<div class="label">ประตู</div><div class="value" style="color: #64748b;">🔒 ปิด</div>';
-        doorBox.style.borderColor = 'rgba(102, 126, 234, 0.2)';
-        doorBox.style.background = 'rgba(102, 126, 234, 0.05)';
+        doorBox.style.borderColor = 'rgba(47, 128, 237, 0.2)';
+        doorBox.style.background = 'rgba(47, 128, 237, 0.05)';
       }
     });
   `;
@@ -638,28 +642,12 @@ app.get("/decision", async (req, res) => {
     const locker = getLocker(id);
     locker.disabled = true;
     publishLockerUpdate(id);
-    
-    // ปิดคำขอทั้งหมดที่ pending อยู่สำหรับตู้นี้
-    let closedCount = 0;
-    for (const [reqId, reqData] of requests.entries()) {
-      if (reqData.locker_id === id && reqData.status === "pending") {
-        reqData.status = "closed";
-        publishRequestUpdate(reqId);
-        closedCount++;
-      }
-    }
-    
-    await linePush(OWNER_USER_ID, { 
-      type: "text", 
-      text: `⛔ ปิด QR ของตู้ ${id} แล้ว${closedCount > 0 ? `\n(ปิดคำขอที่รออยู่ ${closedCount} รายการ)` : ''}` 
-    });
-    
+    await linePush(OWNER_USER_ID, { type: "text", text: `⛔ ปิด QR ของตู้ ${id} แล้ว` });
     res.send(htmlPage("ปิด QR", `
       <div class="card warn">
         <div class="icon">⛔</div>
         <h2>ปิดรับคำขอแล้ว</h2>
         <p style="text-align: center;">ตู้ <span class="mono">${id}</span> ปิดรับคำขอชั่วคราว</p>
-        ${closedCount > 0 ? `<p style="text-align: center;" class="muted">ปิดคำขอที่รออยู่ ${closedCount} รายการ</p>` : ''}
         <div class="btn-group">
           <a class="btn" href="/enable?locker_id=${id}">🔓 เปิดรับคำขออีกครั้ง</a>
         </div>
@@ -910,7 +898,7 @@ app.post("/webhook", async (req, res) => {
 
 // ====== Start ======
 app.listen(PORT, () => {
-  console.log(`🚀 Smart Locker MVP (real-time, dual status) on http://localhost:${PORT}`);
+  console.log(`🚀 DROPMATE System (real-time, dual status) on http://localhost:${PORT}`);
   console.log(`   Public base: ${BASE_URL}`);
   console.log(`   Webhook URL: ${BASE_URL}/webhook`);
 });
